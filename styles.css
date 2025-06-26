@@ -1,0 +1,181 @@
+/* Colour Palette */
+
+    /* Navbar: #FFD369 (Yellow)
+    Background: #222831 (Black)
+    Contents: #393E46 (Grey)
+    Footer: #EEEEEE (White) */
+
+
+/* Font Families */
+
+    /* Headers: Belanosima, sans-serif
+    Paragraph-type Text: Roboto Slab, serif
+    Footer and Navbar (the contents): Ubuntu, sans-serif */
+
+
+/* HTML Elements */
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+body {
+    margin: 0;
+    background-color: #222831;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Prompt', sans-serif;
+}
+
+/* Classes */
+
+.center-container {
+    margin: auto;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.contents {
+    background-color: #393E46;
+    width: 75%;
+    min-height: 100vh;
+}
+
+.contents-hr {
+    border-style: solid;
+    border-color: #EEEEEE;
+    width: 15%;
+}
+
+.contents-image {
+    border-radius: 15px;
+}
+
+.contents-text {
+    margin-left: 50px;
+    margin-right: 50px;
+    font-family: 'Roboto Slab', serif;
+    line-height: 2;
+    color: #EEEEEE;
+}
+
+.contents-ul {
+    list-style: none;
+}
+
+.footer {
+    background-color: #EEEEEE;
+    width: 100%;
+}
+
+.footer-text {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.logo {
+    width: 200px;
+    display: inline;
+}
+
+.logo:hover {
+    cursor: pointer;
+}
+
+.navbar {
+    top: 0;
+    height: 105px;
+    width: 100%;
+    position: fixed;
+    background-color: #FFD369;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-button {
+    text-align: center;
+    margin-top: 5px; 
+    margin: 0; 
+    color: #ced3db;
+    background: none;
+    border: none;
+}
+  
+.navbar-button:hover {
+    color: #9da1a8;
+}
+
+.navbar-item { 
+    display: inline-block;
+    position: relative;
+}
+
+.navbar-item::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 5px;
+    bottom: 0;
+    left: 0;
+    border-radius: 5px;
+    background-color: black;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+  
+.navbar-item:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.navbar-text {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.top-text {
+    margin-top: 170px;
+}
+
+.under-construction {
+    font-size: 3em;
+}
+
+.white-text {
+    color: #EEEEEE;
+}
+
+/* Animation Classes (?) */
+
+.rainbow {
+    text-align: center;
+    text-decoration: underline;
+    font-size: 32px;
+    letter-spacing: 5px;
+}
+
+.rainbow_text_animated {
+    background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow_animation 3s ease-in-out infinite;
+    background-size: 400% 100%;
+}
+
+@keyframes rainbow_animation {
+    0%,100% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 100% 0;
+    }
+}
