@@ -22,6 +22,21 @@
 //     document.getElementById('dropdown').style.height = "35px";
 // }
 
+// Underline Current Navbar Tab
+document.addEventListener("DOMContentLoaded", function () {
+    const currentPage = window.location.pathname.split("/").pop(); 
+    const items = document.querySelectorAll(".navbar-item a");
+
+    items.forEach(link => {
+        if (link.getAttribute("href") === currentPage) {
+            link.parentElement.classList.add("active"); // apply to <h2>
+        }
+    });
+
+    if (currentPage === "" || currentPage === "index.html") {
+        document.querySelector(".logo").parentElement?.classList.add("active");
+    }
+});
 
 // Age Calculator
 
