@@ -117,6 +117,7 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
 }
 
+/* underline default state */
 .navbar-item::after {
     content: '';
     position: absolute;
@@ -130,8 +131,15 @@ h1, h2, h3, h4, h5, h6 {
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
 }
-  
+
+/* underline on hover */
 .navbar-item:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* underline when active */
+.navbar-item.active::after {
     transform: scaleX(1);
     transform-origin: bottom left;
 }
