@@ -1,0 +1,74 @@
+<!-- Served by GitHub Pages for any missing URL, so every path here is absolute -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/all_about_me/images/ABM! - Tab Logo.png" type="image/x-icon" />
+    <title>404 - ABM!</title>
+
+    <!-- API Stuff -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Linked Local Files -->
+    <link rel="stylesheet" href="/all_about_me/css/styles.css">
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar" aria-label="Main">
+        <a class="navbar-item" href="/all_about_me/contact.html"><span class="tok-op">&amp;</span>contact</a>
+        <a class="navbar-item" href="/all_about_me/projects.html"><span class="tok-op">&amp;</span>projects</a>
+        <a class="logo-link" href="/all_about_me/index.html"><img class="logo" src="/all_about_me/images/ABM! - Logo (Transparent).png" alt="ABM! home"></a>
+        <a class="navbar-item" href="/all_about_me/dummy1.html"><span class="tok-op">&amp;</span>dummy1</a>
+        <a class="navbar-item" href="/all_about_me/dummy2.html"><span class="tok-op">&amp;</span>dummy2</a>
+    </nav>
+
+    <!-- Main Contents -->
+    <div class="center-container contents code-page">
+
+        <p class="code code-line class-open" aria-hidden="true" style="--i: 0"><span class="tok-num">404</span> <span class="tok-comment">// not found</span></p>
+        <h1 class="error-title" style="--i: 1"><span class="tok-var">error:</span> '<span id="missing-page">page</span>' was not declared in this scope</h1>
+        <p class="code code-line error-links" style="--i: 2"><a href="/all_about_me/index.html"><span class="tok-op">&amp;</span>home</a></p>
+
+    </div>
+
+    <!-- Footer: the end of main() -->
+    <footer class="center-text footer code">
+        <p class="code-line tok-comment">// Copyright 2026 Murad Dashdamirov</p>
+        <p class="code-line"><span class="tok-kw">return</span> <span class="tok-num">0</span>;</p>
+        <p class="code-line tok-comment">// 0 errors, 2 warnings</p>
+    </footer>
+
+    <!-- JS and JQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="/all_about_me/engines/script.js"></script>
+
+    <!-- Put the requested file name in place of 'page' -->
+    <script>
+        (function () {
+            var parts = location.pathname.split("/").filter(Boolean);
+            var file = parts.length > 1 ? parts[parts.length - 1] : "";
+            try { file = decodeURIComponent(file); } catch (e) {}
+            if (file) {
+                document.getElementById("missing-page").textContent = file;
+            }
+        })();
+    </script>
+
+</body>
+
+</html>

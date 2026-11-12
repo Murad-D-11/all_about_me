@@ -3,14 +3,15 @@
     /* Navbar: #FFD369 (Yellow)
     Background: #222831 (Black)
     Contents: #393E46 (Grey)
-    Footer: #EEEEEE (White) */
+    Text: #EEEEEE (White)
+    Syntax tokens: One Dark Pro, see the --od-* variables below */
 
 
 /* Font Families */
 
-    /* Headers: Belanosima, sans-serif
+    /* Headers: Prompt, sans-serif
     Paragraph-type Text: Roboto Slab, serif
-    Footer and Navbar (the contents): Ubuntu, sans-serif */
+    Code (navbar, footer, class/function lines): JetBrains Mono, monospace */
 
 
 /* HTML Elements */
@@ -18,6 +19,11 @@
 a {
     text-decoration: none;
     color: black;
+}
+
+/* Smooth cross-page navigation where supported; others just load the page */
+@view-transition {
+    navigation: auto;
 }
 
 body {
@@ -71,50 +77,62 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .footer {
-    background-color: #EEEEEE;
     width: 100%;
+    padding: 1.25rem 16px;
+    box-sizing: border-box;
+    background-color: #222831;
+    border-top: 1px solid var(--od-guide);
 }
 
-.footer-text {
-    font-family: 'Ubuntu', sans-serif;
+.footer .code-line {
+    font-size: 0.85rem;
 }
 
-.logo {
-    width: 200px;
-    display: inline;
-}
-
-.logo:hover {
-    cursor: pointer;
-}
+/* Navbar: & links, logo in the middle */
 
 .navbar {
+    --navbar-font: 1.3rem;
     top: 0;
-    height: 105px;
+    height: var(--navbar-h);
     width: 100%;
+    box-sizing: border-box;
+    padding: 0 16px;
     position: fixed;
+    z-index: 10;
     background-color: #FFD369;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 30px;
+    view-transition-name: navbar;
 }
 
-.navbar-button {
-    text-align: center;
-    margin-top: 5px; 
-    margin: 0; 
-    color: #ced3db;
-    background: none;
-    border: none;
-}
-  
-.navbar-button:hover {
-    color: #9da1a8;
+.logo-link {
+    display: flex;
+    flex-shrink: 0;
 }
 
-.navbar-item { 
-    display: inline-block;
+.logo {
+    width: 200px;
+    height: auto;
+}
+
+.navbar-item {
     position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;   /* tap target */
+    font-family: var(--font-code);
+    font-variant-ligatures: normal;
+    font-size: var(--navbar-font);
+    font-weight: 700;
+    white-space: nowrap;
+    color: black;
+}
+
+/* The & in a darker operator teal: #56b6c2 is unreadable on the yellow bar */
+.navbar-item .tok-op {
+    color: #0f5f68;
 }
 
 /* underline default state */
@@ -124,7 +142,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     transform: scaleX(0);
     height: 5px;
-    bottom: 0;
+    bottom: 2px;
     left: 0;
     border-radius: 5px;
     background-color: black;
@@ -133,9 +151,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* underline on hover */
-.navbar-item:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
+@media (hover: hover) {
+    .navbar-item:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+    }
 }
 
 /* underline when active */
@@ -144,12 +164,8 @@ h1, h2, h3, h4, h5, h6 {
     transform-origin: bottom left;
 }
 
-.navbar-text {
-    font-family: 'Ubuntu', sans-serif;
-}
-
 .top-text {
-    margin-top: 170px;
+    margin-top: calc(var(--navbar-h) + 65px);
 }
 
 .under-construction {
@@ -185,5 +201,448 @@ h1, h2, h3, h4, h5, h6 {
 
     50% {
         background-position: 100% 0;
+    }
+}
+
+
+/* ==========================================================
+   Code-style redesign (see CLAUDE.md)
+   ========================================================== */
+
+:root {
+    /* VS Code "One Dark Pro" tokens, used for syntax-coloured text only */
+    --od-keyword: #c678dd;
+    --od-type: #e5c07b;
+    --od-function: #61afef;
+    --od-operator: #56b6c2;
+    --od-string: #98c379;
+    --od-number: #d19a66;
+    --od-variable: #e06c75;
+    --od-punct: #abb2bf;
+    --od-comment: #7f848e;
+    --od-panel: #282c34;           /* editor background, used for media frames */
+    --od-guide: rgba(171, 178, 191, 0.18);  /* indent guide lines */
+
+    --font-code: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+    /* Height of the fixed navbar; the first line of every page sits below it */
+    --navbar-h: 105px;
+}
+
+/* Code text */
+
+.code {
+    font-family: var(--font-code);
+    font-variant-ligatures: normal;
+    color: var(--od-punct);
+}
+
+.code-line {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 2;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.tok-kw { color: var(--od-keyword); }
+.tok-type { color: var(--od-type); }
+.tok-fn { color: var(--od-function); }
+.tok-op { color: var(--od-operator); }
+.tok-str { color: var(--od-string); }
+.tok-num { color: var(--od-number); }
+.tok-var { color: var(--od-variable); }
+.tok-comment { color: var(--od-comment); }
+
+/* Page = class */
+
+.code-page {
+    box-sizing: border-box;
+    padding: 0 50px 80px;
+}
+
+.code-page > * {
+    animation: load-in 0.35s ease-out backwards;
+    animation-delay: calc(var(--i, 0) * 80ms);
+}
+
+.class-open {
+    margin-top: calc(var(--navbar-h) + 30px);
+}
+
+.indent-1 {
+    margin-left: 2ch;
+}
+
+.page-title {
+    margin-top: 12px;   /* top/bottom only, so .indent-1 still applies */
+    margin-bottom: 8px;
+    color: #EEEEEE;
+}
+
+/* Paragraphs inside a code page already get the page's side padding */
+.code-page .contents-text {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.code-page .contents-ul {
+    padding-left: 0;
+}
+
+/* Section = function */
+
+.fn-block {
+    margin-top: 1.5rem;
+}
+
+/* Body of a function: indented, with an indent guide on the left */
+.fn-body {
+    margin-left: 2ch;
+    padding: 0.25rem 0 0.25rem 1.5rem;
+    border-left: 1px solid var(--od-guide);
+}
+
+.fn-body > :first-child {
+    margin-top: 0;
+}
+
+.fn-body > :last-child {
+    margin-bottom: 0;
+}
+
+/* Home: name with a text cursor */
+
+.typed-name {
+    margin: 0.5rem 0 1rem;
+    text-align: center;
+    font-size: clamp(1.8rem, 8vw, 3rem);
+    color: #EEEEEE;
+}
+
+/* The last word and the cursor never split across lines */
+.typed-name .nowrap {
+    white-space: nowrap;
+}
+
+/* Negative right margin: the cursor takes no net width, so moving it doesn't shift the centred name */
+.cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1em;
+    margin-left: 2px;
+    margin-right: -5px;
+    vertical-align: -0.12em;
+    background-color: #FFD369;
+    animation: cursor-blink 1s step-end infinite;
+}
+
+/* Solid while typing, like a real text box */
+.typed-name.typing .cursor {
+    animation: none;
+}
+
+.typed-name.typing .letter:not(.shown) {
+    opacity: 0;
+}
+
+/* With JS, hide the name until script.js has split it into letters.
+   Backstop: reveal it after 2s anyway, in case script.js never runs. */
+.js .typed-name:not(.ready) {
+    opacity: 0;
+    animation: reveal 0s 2s forwards;
+}
+
+@keyframes cursor-blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes reveal {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Unfinished pages */
+
+.under-construction-image {
+    display: block;
+    width: clamp(120px, 15%, 240px);
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 2rem;
+}
+
+/* 404 page */
+
+.error-title {
+    margin: 12px 0 8px;
+    font-family: var(--font-code);
+    font-size: clamp(1.1rem, 4vw, 1.6rem);
+    line-height: 1.5;
+    color: #EEEEEE;
+    overflow-wrap: anywhere;
+}
+
+.error-title .tok-var {
+    font-weight: 700;
+}
+
+.error-links a {
+    display: inline-block;
+    padding: 0.7rem 0;
+    color: var(--od-function);
+}
+
+@media (hover: hover) {
+    .error-links a:hover {
+        text-decoration: underline;
+    }
+}
+
+/* Project cards (one per function) */
+
+.project {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem 2rem;
+    margin-left: 2ch;
+    padding: 0.5rem 0 1.5rem 1.5rem;
+    border-left: 1px solid var(--od-guide);   /* indent guide */
+}
+
+.media {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--od-guide);
+    border-radius: 15px;
+    background: var(--od-panel);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+/* Hover effects only where there is a real hover (not touch screens) */
+@media (hover: hover) {
+    .media:hover {
+        border-color: var(--od-function);
+        transform: translateY(-2px);
+    }
+}
+
+.media-bar {
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--od-guide);
+    font-family: var(--font-code);
+    font-size: 0.8rem;
+    color: var(--od-comment);
+}
+
+/* The placeholder, an <img> or a <video> all fill the frame at 16:9 */
+.media-slot,
+.media > img,
+.media > video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.media-slot {
+    display: grid;
+    place-items: center;
+    text-align: center;
+    font-family: var(--font-code);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--od-comment);
+    background: repeating-linear-gradient(135deg, #282c34 0 14px, #2c313a 14px 28px);
+}
+
+.project-title {
+    margin: 0 0 0.25rem;
+    font-size: 1.6rem;
+    color: #EEEEEE;
+}
+
+/* Real content is never set in the comment colour (too faint on #393E46). Only the "//" is. */
+.project-tagline {
+    margin: 0 0 1rem;
+    font-size: 0.85rem;
+}
+
+.project-text {
+    margin: 0 0 1rem;
+    font-family: 'Roboto Slab', serif;
+    line-height: 1.8;
+    color: #EEEEEE;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0 0 1rem;
+    padding: 0;
+    list-style: none;
+}
+
+.tags li {
+    padding: 0.15rem 0.6rem;
+    border: 1px solid var(--od-comment);
+    border-radius: 6px;
+    font-family: var(--font-code);
+    font-size: 0.8rem;
+    color: var(--od-type);
+}
+
+.project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    font-family: var(--font-code);
+    font-size: 0.9rem;
+}
+
+.project-links a {
+    color: var(--od-function);
+}
+
+@media (hover: hover) {
+    .project-links a:hover {
+        text-decoration: underline;
+    }
+}
+
+/* Navbar: shrink in steps so it always fits on one row (two rows on the smallest phones) */
+@media (max-width: 859px) {
+    :root {
+        --navbar-h: 90px;
+    }
+
+    .navbar {
+        --navbar-font: 1rem;
+        gap: 20px;
+    }
+
+    .logo {
+        width: 140px;
+    }
+}
+
+@media (max-width: 600px) {
+    :root {
+        --navbar-h: 64px;
+    }
+
+    .navbar {
+        --navbar-font: 0.8rem;
+        gap: 12px;
+        padding: 0 8px;
+    }
+
+    .logo {
+        width: 80px;
+    }
+
+    .navbar-item::after {
+        height: 3px;
+        bottom: 8px;
+    }
+}
+
+@media (max-width: 420px) {
+    :root {
+        --navbar-h: 100px;
+    }
+
+    /* Logo on its own row, links below it */
+    .navbar {
+        flex-wrap: wrap;
+        align-content: center;
+        row-gap: 0;
+        gap: 0 14px;
+    }
+
+    .logo-link {
+        order: -2;
+    }
+
+    .navbar::before {
+        content: '';
+        order: -1;
+        flex-basis: 100%;
+    }
+}
+
+@media (min-width: 860px) {
+    .project {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+        align-items: center;
+    }
+
+    /* Alternate: media on the right for every other project */
+    .project.flip .media {
+        order: 2;
+    }
+}
+
+@media (max-width: 600px) {
+    /* The usual 75% column is too narrow for cards on a phone */
+    .code-page {
+        width: 94%;
+        padding: 0 16px 60px;
+    }
+
+    .indent-1,
+    .fn-body,
+    .project {
+        margin-left: 1ch;
+    }
+
+    .fn-body,
+    .project {
+        padding-left: 1rem;
+    }
+
+    /* Tap targets of at least 44px */
+    .project-links a {
+        display: inline-block;
+        padding: 0.7rem 0;
+    }
+}
+
+/* Arrival animation */
+
+@keyframes load-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .code-page > * {
+        animation: none;
+    }
+
+    .cursor {
+        animation: none;
+    }
+
+    .navbar-item::after {
+        transition: none;
+    }
+
+    .rainbow_text_animated {
+        animation: none;
+    }
+
+    .media {
+        transition: none;
+    }
+
+    .media:hover {
+        transform: none;
     }
 }

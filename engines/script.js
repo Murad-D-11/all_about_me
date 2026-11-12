@@ -24,19 +24,77 @@
 
 // Underline Current Navbar Tab
 document.addEventListener("DOMContentLoaded", function () {
-    const currentPage = window.location.pathname.split("/").pop(); 
-    const items = document.querySelectorAll(".navbar-item a");
+    const currentPage = window.location.pathname.split("/").pop();
+    const items = document.querySelectorAll(".navbar-item");
 
     items.forEach(link => {
-        if (link.getAttribute("href") === currentPage) {
-            link.parentElement.classList.add("active"); // apply to <h2>
+        // Compare file names, so absolute hrefs (404.html) work too
+        if (link.pathname.split("/").pop() === currentPage) {
+            link.classList.add("active");
+            link.setAttribute("aria-current", "page");
         }
     });
-
-    if (currentPage === "" || currentPage === "index.html") {
-        document.querySelector(".logo").parentElement?.classList.add("active");
-    }
 });
+
+// Typed Name (Home)
+// The name is plain text in the HTML. Here it is split into one hidden span per letter,
+// then typed out with the cursor following the last letter shown.
+
+(function () {
+    const name = document.getElementById("typed-name");
+    if (!name) {
+        return;
+    }
+
+    // Reduced motion: show the full name at once (CSS keeps the cursor solid)
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        name.classList.add("ready");
+        return;
+    }
+
+    const cursor = name.querySelector(".cursor");
+    const letters = [];
+    const walker = document.createTreeWalker(name, NodeFilter.SHOW_TEXT);
+    const textNodes = [];
+
+    while (walker.nextNode()) {
+        textNodes.push(walker.currentNode);
+    }
+
+    textNodes.forEach(node => {
+        const fragment = document.createDocumentFragment();
+        for (const char of node.textContent) {
+            const span = document.createElement("span");
+            span.className = "letter";
+            span.setAttribute("aria-hidden", "true");
+            span.textContent = char;
+            fragment.appendChild(span);
+            letters.push(span);
+        }
+        node.replaceWith(fragment);
+    });
+
+    if (letters.length === 0) {
+        name.classList.add("ready");
+        return;
+    }
+
+    letters[0].before(cursor);
+    name.classList.add("ready", "typing");
+
+    let i = 0;
+    setTimeout(function typeNext() {
+        letters[i].classList.add("shown");
+        letters[i].after(cursor);
+        i++;
+
+        if (i < letters.length) {
+            setTimeout(typeNext, 75);
+        } else {
+            name.classList.remove("typing"); // cursor starts blinking
+        }
+    }, 250);
+})();
 
 // Age Calculator
 
@@ -53,5 +111,8 @@ var year = age_dt.getUTCFullYear();
 //now calculate the age of the user
 var age = Math.abs(year - 1970);
 
-//display the calculated age
-document.getElementById('age').textContent = "(" + age + " years old" + ")";
+//display the calculated age (only Home has an #age element)
+var ageElement = document.getElementById('age');
+if (ageElement) {
+    ageElement.textContent = "(" + age + " years old" + ")";
+}

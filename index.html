@@ -18,15 +18,18 @@
     <link rel="icon" href="images/ABM! - Tab Logo.png" type="image/x-icon" />
     <title>Home - ABM!</title>
 
+    <!-- Lets the CSS hide the name until script.js types it out -->
+    <script>document.documentElement.classList.add("js");</script>
+
     <!-- API Stuff -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+
 
     <!-- Custom Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">  
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- Linked Local Files -->
     <link rel="stylesheet" href="css/styles.css">
@@ -36,37 +39,55 @@
 <body>
 
     <!-- Navbar -->
-    <div class="navbar">
-        <h2 style="margin-right: 30px;" class="navbar-item"><a href="contact.html">Contact</a></h2>
-        <h2 style="margin-right: 30px;" class="navbar-item"><a href="projects.html">Projects</a></h2>
-        <img class="logo" src="images/ABM! - Logo (Transparent).png" onclick="location.href='index.html'">
-        <h2 style="margin-left: 30px;" class="navbar-item"><a href="dummy1.html">Dummy 1</a></h2>
-        <h2 style="margin-left: 30px;" class="navbar-item"><a href="dummy2.html">Dummy 2</a></h2>
-        <!-- <button style="margin-left: 30px;" class="navbar-item">a</button> -->
-    </div>
+    <nav id="navbar" class="navbar" aria-label="Main">
+        <a class="navbar-item" href="contact.html"><span class="tok-op">&amp;</span>contact</a>
+        <a class="navbar-item" href="projects.html"><span class="tok-op">&amp;</span>projects</a>
+        <a class="logo-link" href="index.html"><img class="logo" src="images/ABM! - Logo (Transparent).png" alt="ABM! home"></a>
+        <a class="navbar-item" href="dummy1.html"><span class="tok-op">&amp;</span>dummy1</a>
+        <a class="navbar-item" href="dummy2.html"><span class="tok-op">&amp;</span>dummy2</a>
+    </nav>
 
     <!-- Main Contents -->
-    <div class="center-container contents">
+    <div class="center-container contents code-page">
 
-        <h1 class="center-text top-text white-text">Home</h1>
-        <hr class="contents-hr">
-        <ul class="contents-ul contents-text">
-            <li>Full Name: Murad Mehdi Dashdamirov</li>
-            <li style="display: inline;">Born: 11th of March, 2008 <b><p style="display: inline;" id="age"></p></b></li>
-            <li>Place of Birth: Baku, Azerbaijan</li>
-            <li>Place of Residency: Toronto, Canada</li>
-            <li>Ethnicity: Lezgin-Azerbaijani</li>
-        </ul>
+        <p class="code code-line class-open" aria-hidden="true" style="--i: 0"><span class="tok-kw">class</span> <span class="tok-type">Home</span> {</p>
+        <p class="code code-line" aria-hidden="true" style="--i: 1"><span class="tok-kw">public</span>:</p>
+
+        <section class="fn-block indent-1" style="--i: 2">
+            <p class="code code-line" aria-hidden="true"><span class="tok-kw">consteval auto</span> <span class="tok-fn">greet</span>() <span class="tok-kw">const noexcept</span> <span class="tok-op">-&gt;</span> <span class="tok-type">void</span> {</p>
+            <div class="fn-body">
+                <h1 id="typed-name" class="typed-name" aria-label="Murad Dashdamirov">Murad <span class="nowrap">Dashdamirov<span class="cursor" aria-hidden="true"></span></span></h1>
+            </div>
+            <p class="code code-line" aria-hidden="true">}</p>
+        </section>
+
+        <section class="fn-block indent-1" style="--i: 3">
+            <p class="code code-line" aria-hidden="true"><span class="tok-kw">auto</span> <span class="tok-fn">about_me</span>() <span class="tok-kw">const noexcept</span> <span class="tok-op">-&gt;</span> <span class="tok-type">PersonalInfo</span> {   <span class="tok-comment">// runtime: age is computed in script.js</span></p>
+            <div class="fn-body">
+                <ul class="contents-ul contents-text">
+                    <li>Full Name: Murad Mehdi Dashdamirov</li>
+                    <li>Born: 11th of March, 2008 <b id="age"></b></li>
+                    <li>Place of Birth: Baku, Azerbaijan</li>
+                    <li>Place of Residency: Toronto, Canada</li>
+                    <li>Ethnicity: Lezgin-Azerbaijani</li>
+                </ul>
+            </div>
+            <p class="code code-line" aria-hidden="true">}</p>
+        </section>
 
         <!-- <h1 class="center-text top-text white-text">References</h1>
         <hr class="contents-hr"> -->
 
+        <p class="code code-line" aria-hidden="true" style="--i: 4">};</p>
+
     </div>
-    
-    <!-- Footer -->
-    <div class="center-text footer">
-        <p>Copyright by Murad Dashdamirov</p>
-    </div>
+
+    <!-- Footer: the end of main() -->
+    <footer class="center-text footer code">
+        <p class="code-line tok-comment">// Copyright 2026 Murad Dashdamirov</p>
+        <p class="code-line"><span class="tok-kw">return</span> <span class="tok-num">0</span>;</p>
+        <p class="code-line tok-comment">// 0 errors, 2 warnings</p>
+    </footer>
 
     <!-- JS and JQuery -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
